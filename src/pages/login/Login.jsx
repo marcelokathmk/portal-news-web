@@ -37,10 +37,13 @@ class Login extends Component {
         this.setState({progressVisible: true});
         this.props.executeLogin(this.state.usuario, this.state.senha).then((res) => {
             this.props.obterUsuarioLogado(this.props.authorization).then((ret) => {
+                localStorage.setItem('authorization', this.props.authorization);
+                localStorage.setItem('usuarioLogado', JSON.stringify(ret.payload.data));
                 this.props.history.push("/dashboardadm");
             });
         }).catch((error) => {
-            console.log(error)
+            localStorage.setItem('authorization', undefined);
+            localStorage.setItem('usuarioLogado', undefined);
             this.showMessageDialog('Usuário/Senha inválidos! Tente novamente.');
         });
     }
