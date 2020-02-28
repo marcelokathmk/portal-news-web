@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     root: {
-      margin: 15,
+      margin: 10,
       width: 150,
       height: 50   
     }
@@ -13,6 +13,17 @@ const useStyles = makeStyles({
 export default props => {
     const classes = useStyles();
     return (
-        <Button variant={props.variant} color={props.color} className={classes.root} onClick={props.callbackParent}>{props.text}</Button>
+        <Button 
+            variant={props.variant} 
+            color={props.color} 
+            className={classes.root} 
+            onClick={props.callbackParent} 
+            startIcon={props.startIcon}
+            size={props.tamanho}
+            disabled={props.desabilitado}>
+
+            {props.text}
+
+        </Button>
     )
 }
