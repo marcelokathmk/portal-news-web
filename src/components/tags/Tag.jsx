@@ -1,41 +1,42 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { obterCategorias } from './CategoriaAction';
+import { obterTags } from './TagActions';
 
-class Categoria extends Component {
+class Tag extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            categorias: []
+            tags: []
         }
     }
 
     componentDidMount(){
-        obterCategorias().then((resp) => {
+        obterTags().then((resp) => {
             this.setState({
-                categorias : resp.data
+                tags : resp.data
             })
         })
     }
 
     render(){
-        const { categorias } = this.state;
+        const { tags } = this.state;
 
         return (
             <Autocomplete
                 id="free-solo-demo"
-                onChange={(event, value) => this.props.obterCategoriaSelecionada(value)}
+                onChange={(event, values) => this.props.obterTagsSelecionadas(values)}
                 freeSolo
-                options={categorias}
+                multiple
+                options={tags}
                 getOptionLabel={option => option.descricao}
                 renderInput={params => (
-                    <TextField {...params} label="Categoria" margin="normal" variant="outlined" />
+                    <TextField {...params} label="Tag" margin="normal" variant="outlined" />
                 )}
             />
         )
     }
 }
 
-export default Categoria;
+export default Tag;
